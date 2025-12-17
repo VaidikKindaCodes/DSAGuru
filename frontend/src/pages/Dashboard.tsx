@@ -26,7 +26,7 @@ function Dashboard() {
 
   const [questionData, setQuestionData] = useState<QuestionData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [topic, setTopic] = useState<string>("All");
+  const [topic] = useState<string>("All");
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [debouncedSearch, setDebouncedSearch] = useState<string>("");
