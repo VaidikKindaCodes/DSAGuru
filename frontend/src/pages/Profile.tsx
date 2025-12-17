@@ -242,38 +242,69 @@ function Profile() {
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-1 sm:px-0">
           {pageData.map((question, idx) => (
             <article
-              key={question._id}
-              className="h-56 flex flex-col justify-between rounded-xl p-4 bg-white/10 border border-white/10 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-200 backdrop-blur-md"
-            >
-              <div>
-                <h3 className="text-base font-semibold text-[#00ffe7] mb-1 tracking-tight">
-                  Q{(currentPage - 1) * pageSize + idx + 1}
-                </h3>
-                <p className="text-xs text-white/80 mb-2 line-clamp-2">
-                  {question.title}
-                </p>
-              </div>
-              <div className="flex items-center justify-between gap-2">
-                <span className="px-2 py-1 rounded text-[10px] font-medium bg-[#00ffe7]/10 text-[#00ffe7] border border-[#00ffe7]/30">
-                  {question.topic}
-                </span>
-                <button
-                  className="px-2 py-1 rounded text-[10px] font-medium bg-[#00ffe7]/10 text-[#00ffe7] border border-[#00ffe7]/30 hover:bg-[#00ffe7]/20 hover:text-[#00ffe7] transition-all duration-150"
-                  onClick={() => handleAddToBookmark(question._id)}
-                  disabled={addingToBookmarks}
-                >
-                  {addingToBookmarks ? "Adding..." : "Bookmark"}
-                </button>
-                <a
-                  href={question.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#00ffe7] hover:text-[#00ffe7]/80 text-xs underline transition"
-                >
-                  Ref
-                </a>
-              </div>
-            </article>
+                key={question._id}
+                className={`group relative h-60 rounded-2xl p-5 border backdrop-blur-md transition-all duration-300
+        ${
+          
+             "bg-[#00ffe7]/10 border-[#00ffe7]/40 shadow-[0_0_20px_#00ffe733]"
+           
+        }`}
+              >
+                {/* Solved badge */}
+                
+                  <span className="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/40">
+                    ✓ Solved
+                  </span>
+              
+
+                {/* Header */}
+                <div className="mb-3">
+                  <h3 className="text-sm font-semibold text-[#00ffe7]">
+                    Q{(currentPage - 1) * pageSize + idx + 1}
+                  </h3>
+                  <p className="mt-1 text-xs text-[#00ffe7]/80 line-clamp-3">
+                    {question.title}
+                  </p>
+                </div>
+
+                {/* Topic */}
+                <div className="mb-4">
+                  <span
+                    className="inline-block px-3 py-1 rounded-full text-[10px] font-medium
+          bg-[#00ffe7]/10 text-[#00ffe7] border border-[#00ffe7]/20"
+                  >
+                    {question.topic}
+                  </span>
+                </div>
+
+                {/* Actions */}
+                <div className="mt-auto flex items-center justify-between gap-2">
+                  {/* Solved toggle */}
+                 
+
+                  {/* Bookmark */}
+                  <button
+                    onClick={() => handleAddToBookmark(question._id)}
+                    disabled={addingToBookmarks}
+                    className="px-3 py-1.5 rounded-lg text-[11px] font-medium
+            bg-white/10 text-[#00ffe7] border border-[#00ffe7]/20
+            hover:bg-[#00ffe7]/20 transition"
+                  >
+                    {addingToBookmarks ? "..." : "Bookmark"}
+                  </button>
+
+                  {/* Reference */}
+                  <a
+                    href={question.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] text-[#00ffe7] underline underline-offset-2
+            hover:text-[#00ffe7]/70 transition"
+                  >
+                    Open ↗
+                  </a>
+                </div>
+              </article>
           ))}
         </section>
         <nav className="mt-8 flex items-center justify-center px-2">

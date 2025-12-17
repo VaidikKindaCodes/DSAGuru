@@ -5,8 +5,8 @@ interface User {
   _id: string;
   username: string;
   email: string;
-  SolvedQuestions: [];
-  BookmarkQuestions: [];
+  SolvedQuestions: [string];
+  BookmarkQuestions: [string];
 }
 
 export interface AuthContextType {

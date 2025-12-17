@@ -119,31 +119,55 @@ function Bookmarks() {
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {pageData.map((question, idx) => (
             <article
-              key={question._id}
-              className="h-48 sm:h-56 flex flex-col justify-between rounded-xl p-4 bg-white/7 border border-white/10 shadow-sm hover:bg-[#00ffe7]/5 hover:border-[#00ffe7]/30 hover:scale-[1.025] transition-all duration-200 backdrop-blur-md"
-            >
-              <div>
-                <h3 className="text-sm sm:text-base font-semibold text-[#00ffe7] mb-1">
-                  Q{(currentPage - 1) * pageSize + idx + 1}
-                </h3>
-                <p className="text-xs sm:text-sm text-[#00ffe7]/80 mb-2 line-clamp-2">
-                  {question.title}
-                </p>
-              </div>
-              <div className="flex items-center justify-between gap-2">
-                <span className="px-2 py-1 rounded text-[10px] sm:text-xs font-medium bg-[#00ffe7]/10 text-[#00ffe7] truncate border border-[#00ffe7]/20">
-                  {question.topic}
-                </span>
-                <a
-                  href={question.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#00ffe7] hover:text-[#00ffe7]/80 text-xs underline transition"
-                >
-                  Ref
-                </a>
-              </div>
-            </article>
+                key={question._id}
+                className={`group relative h-60 rounded-2xl p-5 border backdrop-blur-md transition-all duration-300
+        ${
+          
+            "bg-white/10 border-[#00ffe7]/10 hover:-translate-y-1 hover:shadow-xl"
+        }`}
+              >
+                
+
+                {/* Header */}
+                <div className="mb-3">
+                  <h3 className="text-sm font-semibold text-[#00ffe7]">
+                    Q{(currentPage - 1) * pageSize + idx + 1}
+                  </h3>
+                  <p className="mt-1 text-xs text-[#00ffe7]/80 line-clamp-3">
+                    {question.title}
+                  </p>
+                </div>
+
+                {/* Topic */}
+                <div className="mb-4">
+                  <span
+                    className="inline-block px-3 py-1 rounded-full text-[10px] font-medium
+          bg-[#00ffe7]/10 text-[#00ffe7] border border-[#00ffe7]/20"
+                  >
+                    {question.topic}
+                  </span>
+                </div>
+
+                {/* Actions */}
+                <div className="mt-auto flex items-center justify-between gap-2">
+                  {/* Solved toggle */}
+                  
+
+                  {/* Bookmark */}
+                  
+
+                  {/* Reference */}
+                  <a
+                    href={question.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] text-[#00ffe7] underline underline-offset-2
+            hover:text-[#00ffe7]/70 transition"
+                  >
+                    Open ↗
+                  </a>
+                </div>
+              </article>
           ))}
         </section>
 
