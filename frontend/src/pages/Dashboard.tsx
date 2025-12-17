@@ -91,7 +91,7 @@ function Dashboard() {
       });
       const data = await res.json();
       if (data && data.success) {
-        setUser((prev) =>
+        setUser((prev: AuthContextType["user"]) =>
           prev
             ? {
                 ...prev,
@@ -117,11 +117,11 @@ function Dashboard() {
       });
       const data = await res.json();
       if (data && data.success) {
-        setUser((prev) =>
+        setUser((prev: AuthContextType["user"]) =>
           prev
             ? {
                 ...prev,
-                solvedQuestions: prev.SolvedQuestions.filter((q) => q !== id),
+                solvedQuestions: prev.SolvedQuestions.filter((q: string) => q !== id),
               }
             : prev
         );
@@ -141,15 +141,14 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gradient-to-b dark:from-gray-950 dark:via-gray-900 dark:to-black flex items-center justify-center py-8 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0f13] via-[#10151a] to-[#181f23] flex items-center justify-center py-8 px-4 sm:px-6">
       <main className="w-full max-w-6xl">
         <header className="mb-8 text-center px-2">
-          <h1 className="text-2xl sm:text-3xl font-semibold text-white/90">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-[#00ffe7] drop-shadow-sm">
             Problem Dashboard
           </h1>
-          <p className="mt-2 text-xs sm:text-sm text-white/60 px-1">
-            Browse curated problems — Solve your favourite problems, sort them
-            as per your liking.
+          <p className="mt-2 text-xs sm:text-sm text-[#00ffe7]/70 px-1">
+            Browse curated problems — Solve your favourite problems, sort them as per your liking.
           </p>
           <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
             <input
@@ -157,11 +156,11 @@ function Dashboard() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by title..."
-              className="h-10 w-full sm:w-64 px-3 rounded-lg bg-white/5 border border-white/8 text-sm text-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="h-10 w-full sm:w-64 px-3 rounded-lg bg-white/5 border border-[#00ffe7]/10 text-sm text-[#00ffe7] placeholder:text-[#00ffe7]/40 focus:outline-none focus:ring-2 focus:ring-[#00ffe7]/60 backdrop-blur-md transition"
             />
           </div>
           <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
-            <label htmlFor="topic" className="text-white text-sm sm:text-base">
+            <label htmlFor="topic" className="text-[#00ffe7] text-sm sm:text-base">
               Filter by topic
             </label>
             <select
@@ -171,88 +170,88 @@ function Dashboard() {
                 setTopic(e.target.value);
                 setCurrentPage(1);
               }}
-              className="h-10 w-full sm:w-auto px-3 rounded-lg bg-white/5 border border-white/8 text-sm text-white/90 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="h-10 w-full sm:w-auto px-3 rounded-lg bg-white/10 border border-[#00ffe7]/10 text-sm text-[#00ffe7] focus:outline-none focus:ring-2 focus:ring-[#00ffe7]/60 backdrop-blur-md transition"
             >
-              <option value="All" className="bg-gray-900 text-white">
+              <option value="All" className="bg-[#181f23] text-[#00ffe7]">
                 All
               </option>
               <option
                 value="Learn the basics"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Learn the basics
               </option>
               <option
                 value="Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]
               </option>
               <option
                 value="Recursion [PatternWise]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Recursion [PatternWise]
               </option>
               <option
                 value="Bit Manipulation [Concepts & Problems]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Bit Manipulation [Concepts & Problems]
               </option>
               <option
                 value="Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack,
                 Implementation]
               </option>
               <option
                 value="Sliding Window & Two Pointer Combined Problems"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Sliding Window & Two Pointer Combined Problems
               </option>
               <option
                 value="Heaps [Learning, Medium, Hard Problems]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Heaps [Learning, Medium, Hard Problems]
               </option>
               <option
                 value="Greedy Algorithms [Easy, Medium/Hard]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Greedy Algorithms [Easy, Medium/Hard]
               </option>
               <option
                 value="Binary Trees [Traversals, Medium and Hard Problems]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Binary Trees [Traversals, Medium and Hard Problems]
               </option>
               <option
                 value="Binary Search Trees [Concept and Problems]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Binary Search Trees [Concept and Problems]
               </option>
               <option
                 value="Graphs [Concepts & Problems]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Graphs [Concepts & Problems]
               </option>
               <option
                 value="Dynamic Programming [Patterns and Problems]"
-                className="bg-gray-900 text-white"
+                className="bg-[#181f23] text-[#00ffe7]"
               >
                 Dynamic Programming [Patterns and Problems]
               </option>
-              <option value="Tries" className="bg-gray-900 text-white">
+              <option value="Tries" className="bg-[#181f23] text-[#00ffe7]">
                 Tries
               </option>
-              <option value="Strings" className="bg-gray-900 text-white">
+              <option value="Strings" className="bg-[#181f23] text-[#00ffe7]">
                 Strings
               </option>
             </select>
@@ -263,7 +262,7 @@ function Dashboard() {
                 setSearchTerm("");
                 setCurrentPage(1);
               }}
-              className="h-10 w-full sm:w-auto px-3 rounded-lg bg-white/6 text-sm text-white/90 hover:bg-white/8 transition"
+              className="h-10 w-full sm:w-auto px-3 rounded-lg bg-white/10 border border-[#00ffe7]/10 text-sm text-[#00ffe7] hover:bg-[#00ffe7]/10 hover:text-[#00ffe7] transition backdrop-blur-md"
             >
               Reset
             </button>
@@ -273,22 +272,22 @@ function Dashboard() {
           {pageData.map((question, idx) => (
             <article
               key={question._id}
-              className="h-56 flex flex-col justify-between rounded-xl p-4 bg-white/5 border border-white/10 shadow hover:-translate-y-1 transition"
+              className="h-56 flex flex-col justify-between rounded-xl p-4 bg-white/10 border border-[#00ffe7]/10 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-200 backdrop-blur-md"
             >
               <div>
-                <h3 className="text-base font-semibold text-white/90 mb-1">
+                <h3 className="text-base font-semibold text-[#00ffe7] mb-1">
                   Q{(currentPage - 1) * pageSize + idx + 1}
                 </h3>
-                <p className="text-xs text-white/80 mb-2 line-clamp-2">
+                <p className="text-xs text-[#00ffe7]/80 mb-2 line-clamp-2">
                   {question.title}
                 </p>
               </div>
               <div className="flex items-center justify-between gap-2">
-                <span className="px-2 py-1 rounded text-[10px] font-medium bg-indigo-700/20 text-indigo-200">
+                <span className="px-2 py-1 rounded text-[10px] font-medium bg-[#00ffe7]/10 text-[#00ffe7] border border-[#00ffe7]/20">
                   {question.topic}
                 </span>
                 <button
-                  className="px-2 py-1 rounded text-[10px] font-medium bg-indigo-900/20 text-indigo-200 hover:bg-indigo-800/30 transition"
+                  className="px-2 py-1 rounded text-[10px] font-medium bg-[#00ffe7]/10 text-[#00ffe7] border border-[#00ffe7]/20 hover:bg-[#00ffe7]/20 hover:text-[#181f23] transition"
                   onClick={() => handleAddToBookmark(question._id)}
                   disabled={addingToBookmarks}
                 >
@@ -305,16 +304,16 @@ function Dashboard() {
                         ? handleAddToSolved(question._id)
                         : handleRemoveFromSolved(question._id)
                     }
-                    className="h-4 w-4 accent-indigo-500 cursor-pointer"
+                    className="h-4 w-4 accent-[#00ffe7] bg-[#181f23] border border-[#00ffe7]/30 rounded cursor-pointer transition"
                   />
-                  <label className="text-xs text-white/80">{isQuestionSolved(question._id) ? "Solved" : "NotSolved"}</label>
+                  <label className="text-xs text-[#00ffe7]/80">{isQuestionSolved(question._id) ? "Solved" : "NotSolved"}</label>
                 </div>
 
                 <a
                   href={question.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-indigo-300 hover:text-indigo-100 text-xs underline"
+                  className="text-[#00ffe7] hover:text-[#00ffe7]/80 text-xs underline transition"
                 >
                   Ref
                 </a>
@@ -323,19 +322,19 @@ function Dashboard() {
           ))}
         </section>
         <nav className="mt-8 flex items-center justify-center px-2">
-          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-white/3 border border-white/6 rounded-xl px-3 sm:px-4 py-2 sm:py-3 backdrop-blur-sm w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-white/10 border border-[#00ffe7]/10 rounded-xl px-3 sm:px-4 py-2 sm:py-3 backdrop-blur-md w-full sm:w-auto">
             <button
-              className="px-3 sm:px-4 py-2 rounded-lg bg-white/6 text-white/90 hover:bg-white/8 disabled:opacity-40 disabled:cursor-not-allowed transition w-full sm:w-auto"
+              className="px-3 sm:px-4 py-2 rounded-lg bg-white/10 border border-[#00ffe7]/10 text-[#00ffe7] hover:bg-[#00ffe7]/10 hover:text-[#181f23] disabled:opacity-40 disabled:cursor-not-allowed transition w-full sm:w-auto"
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             >
               Previous
             </button>
-            <div className="px-3 sm:px-4 py-1 rounded-full bg-white/6 text-xs sm:text-sm text-white/95 font-semibold">
+            <div className="px-3 sm:px-4 py-1 rounded-full bg-white/10 border border-[#00ffe7]/10 text-xs sm:text-sm text-[#00ffe7] font-semibold">
               Page {currentPage} / {totalPages || 1}
             </div>
             <button
-              className="px-3 sm:px-4 py-2 rounded-lg bg-white/6 text-white/90 hover:bg-white/8 disabled:opacity-40 disabled:cursor-not-allowed transition w-full sm:w-auto"
+              className="px-3 sm:px-4 py-2 rounded-lg bg-white/10 border border-[#00ffe7]/10 text-[#00ffe7] hover:bg-[#00ffe7]/10 hover:text-[#181f23] disabled:opacity-40 disabled:cursor-not-allowed transition w-full sm:w-auto"
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             >

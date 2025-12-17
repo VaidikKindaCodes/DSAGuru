@@ -8,7 +8,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth() as AuthContextType;
 
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "light" | "dark" | null;
@@ -29,48 +29,46 @@ function Navbar() {
   }, [theme]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-10 bg-gray-900 shadow-md">
-      <div className="flex justify-between items-center py-4 px-5 sm:px-10 max-w-screen-xl mx-auto">
+    <header className="fixed top-0 left-0 right-0 z-10 backdrop-blur-md bg-white/5 border-b border-white/10 shadow-sm">
+      <div className="flex justify-between items-center py-3 px-5 sm:px-10 max-w-screen-xl mx-auto">
         <Link
           to="/"
-          className="text-xl font-bold text-white hover:text-gray-300 transition"
+          className="text-xl font-bold"
+          style={{
+            letterSpacing: "0.1em",
+            color: "#00ffe7",
+          }}
         >
-          Vaidik
+          DSA-GURU
         </Link>
 
         <nav className="hidden md:flex gap-4 items-center">
           {isAuthenticated ? (
             <>
-              <span className="text-white">
-                Hello, {user?.username || "User"}
+              <span className="text-white/70 text-sm">
+                Hi, <span style={{ color: "#00ffe7" }}>{user?.username || "User"}</span>
               </span>
-              {/* <button
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                className="px-3 py-1 rounded-full shadow bg-gray-200 dark:bg-gray-800 text-black dark:text-white transition text-sm"
-              >
-                {theme === "light" ? "Dark 🌙" : "Light ☀️"}
-              </button> */}
               <Link
                 to="/profile"
-                className="bg-gray-700 px-3 py-1 rounded-2xl text-white transition hover:bg-gray-800 hover:scale-105 text-sm"
+                className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
               >
                 Profile
               </Link>
               <Link
                 to="/dashboard"
-                className="bg-gray-700 px-3 py-1 rounded-2xl text-white transition hover:bg-gray-800 hover:scale-105 text-sm"
+                className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
               >
                 Dashboard
               </Link>
               <Link
                 to="/bookmarks"
-                className="bg-gray-700 px-3 py-1 rounded-2xl text-white transition hover:bg-gray-800 hover:scale-105 text-sm"
+                className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
               >
                 Bookmarks
               </Link>
               <button
                 onClick={logout}
-                className="bg-red-700 px-3 py-1 rounded-2xl text-white transition hover:bg-red-600 hover:scale-105 text-sm"
+                className="px-4 py-1.5 rounded-lg bg-rose-700/80 border border-rose-700/40 text-white/90 text-sm font-medium hover:bg-rose-600/80 hover:border-rose-400 hover:text-[#00ffe7] transition-colors duration-200"
               >
                 Logout
               </button>
@@ -79,13 +77,13 @@ function Navbar() {
             <>
               <Link
                 to="/sign-in"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition text-sm"
+                className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
               >
                 Sign In
               </Link>
               <Link
                 to="/sign-up"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition text-sm"
+                className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
               >
                 Sign Up
               </Link>
@@ -95,47 +93,41 @@ function Navbar() {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white"
+          className="text-[#00ffe7] md:hidden p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] transition-colors duration-200"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-gray-800 shadow-lg">
-          <div className="flex flex-col gap-4 p-4">
+        <div className="bg-white/5 backdrop-blur-md md:hidden shadow border-t border-white/10">
+          <div className="flex flex-col gap-3 p-5">
             {isAuthenticated ? (
               <>
-                <span className="text-white">
-                  Hello, {user?.username || "User"}
+                <span className="text-white/70 text-sm">
+                  Hi, <span style={{ color: "#00ffe7" }}>{user?.username || "User"}</span>
                 </span>
-                {/* <button
-                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                  className="px-3 py-2 rounded shadow bg-gray-200 dark:bg-gray-800 text-black dark:text-white transition text-sm"
-                >
-                  {theme === "light" ? "Dark 🌙" : "Light ☀️"}
-                </button> */}
                 <Link
                   to="/profile"
-                  className="bg-gray-700 px-3 py-1 rounded-2xl text-white transition hover:bg-gray-800 hover:scale-105 text-sm"
+                  className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
                 >
                   Profile
                 </Link>
                 <Link
                   to="/dashboard"
-                  className="bg-gray-700 px-3 py-2 rounded-lg text-white hover:bg-gray-800"
+                  className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
                 >
                   Dashboard
                 </Link>
                 <Link
                   to="/bookmarks"
-                  className="bg-gray-700 px-3 py-2 rounded-lg text-white hover:bg-gray-800"
+                  className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
                 >
                   Bookmarks
                 </Link>
                 <button
                   onClick={logout}
-                  className="bg-red-700 px-3 py-2 rounded-lg text-white hover:bg-red-600"
+                  className="px-4 py-1.5 rounded-lg bg-rose-700/80 border border-rose-700/40 text-white/90 text-sm font-medium hover:bg-rose-600/80 hover:border-rose-400 hover:text-[#00ffe7] transition-colors duration-200"
                 >
                   Logout
                 </button>
@@ -144,13 +136,13 @@ function Navbar() {
               <>
                 <Link
                   to="/sign-in"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg"
+                  className="px-4 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/90 text-sm font-medium hover:bg-[#00ffe7]/10 hover:border-[#00ffe7] hover:text-[#00ffe7] transition-colors duration-200"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/sign-up"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg"
+                  className="px-4 py-1.5 rounded-lg bg-[#00ffe7]/10 border border-[#00ffe7]/30 text-[#00ffe7] text-sm font-semibold hover:bg-[#00ffe7]/20 hover:border-[#00ffe7] hover:text-white transition-colors duration-200"
                 >
                   Sign Up
                 </Link>
