@@ -98,7 +98,7 @@ function Dashboard() {
           prev
             ? {
                 ...prev,
-                solvedQuestions: [...(prev.SolvedQuestions || []), id],
+                SolvedQuestions: [...(prev.SolvedQuestions || []), id],
               }
             : prev
         );
@@ -126,7 +126,7 @@ function Dashboard() {
           prev
             ? {
                 ...prev,
-                solvedQuestions: prev.SolvedQuestions.filter(
+                SolvedQuestions: prev.SolvedQuestions.filter(
                   (q: string) => q !== id
                 ),
               }
