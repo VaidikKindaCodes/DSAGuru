@@ -1,11 +1,11 @@
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
 import { DBConnect } from "../dbConnect.js";
 import category from "../models/category.js";
 import question from "../models/question.js";
 
 const seeder = async () => {
-    const databaseUrl = process.env.DB_URI.toString();
+    const databaseUrl = "mongodb+srv://manuvaidik_db_user:dVgo8QsyRxw4T5xK@cluster0.iqsqxry.mongodb.net/?appName=Cluster0";
     await DBConnect(databaseUrl);
     try {
         const res = await fetch("https://test-data-gules.vercel.app/data.json");
