@@ -6,7 +6,7 @@ import type { AuthContextType } from "../context/AuthContext";
 
 interface Question {
   _id: string;
-  title: string;
+  title: string | null;
   topic: string;
   url: string;
 }
@@ -40,6 +40,7 @@ function Dashboard() {
       setDebouncedSearch(searchTerm);
       setCurrentPage(1);
     }, 300);
+
     return () => clearTimeout(t);
   }, [searchTerm]);
 
@@ -50,10 +51,14 @@ function Dashboard() {
   );
 
   const filteredData = allQuestions.filter((q) => {
+    const title = q.title ?? "";
+    const search = debouncedSearch ?? "";
+
     const topicMatch = topic === "All" || q.topic === topic;
-    const searchMatch = q.title
+    const searchMatch = title
       .toLowerCase()
-      .includes(debouncedSearch.toLowerCase());
+      .includes(search.toLowerCase());
+
     return topicMatch && searchMatch;
   });
 
@@ -97,14 +102,7 @@ function Dashboard() {
       body: JSON.stringify({ quesId: id }),
     });
 
-    setUser((prev) =>
-      prev
-        ? {
-            ...prev,
-            solvedQuestions: [...new Set([...prev.SolvedQuestions, id])],
-          }
-        : prev
-    );
+    setUser((prev) => prev ? { ...prev, bookmarkedQuestions: prev.BookmarkQuestions.includes(id) ? prev.BookmarkQuestions.filter((q) => q !== id) : [...prev.BookmarkQuestions, id], } : prev );
   };
 
   const removeSolved = async (id: string) => {
@@ -115,14 +113,7 @@ function Dashboard() {
       body: JSON.stringify({ quesId: id }),
     });
 
-    setUser((prev) =>
-      prev
-        ? {
-            ...prev,
-            solvedQuestions: prev.SolvedQuestions.filter((q) => q !== id),
-          }
-        : prev
-    );
+    setUser((prev) => prev ? { ...prev, solvedQuestions: prev.SolvedQuestions.filter((q) => q !== id), } : prev );
   };
 
   /* ================= BOOKMARK ================= */
@@ -136,15 +127,7 @@ function Dashboard() {
     });
 
     setUser((prev) =>
-      prev
-        ? {
-            ...prev,
-            bookmarkedQuestions: prev.BookmarkQuestions.includes(id)
-              ? prev.BookmarkQuestions.filter((q) => q !== id)
-              : [...prev.BookmarkQuestions, id],
-          }
-        : prev
-    );
+     prev ? { ...prev, bookmarkedQuestions: prev.BookmarkQuestions.includes(id) ? prev.BookmarkQuestions.filter((q) => q !== id) : [...prev.BookmarkQuestions, id], } : prev );
   };
 
   /* ================= UI ================= */
@@ -153,11 +136,11 @@ function Dashboard() {
     <div className="min-h-screen bg-[#0a0f13] py-8 px-4">
       <main className="max-w-6xl mx-auto">
 
-        {/* HEADER */}
         <header className="mb-8 text-center">
           <h1 className="text-3xl font-semibold text-[#00ffe7]">
             Problem Dashboard
           </h1>
+
           <input
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -166,7 +149,6 @@ function Dashboard() {
           />
         </header>
 
-        {/* GRID */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {pageData.map((q) => {
             const solved = isSolved(q._id);
@@ -183,7 +165,7 @@ function Dashboard() {
                 }`}
               >
                 <h3 className="text-sm font-semibold text-[#00ffe7]">
-                  {q.title}
+                  {q.title ?? "Untitled Problem"}
                 </h3>
 
                 <p className="mt-2 text-xs text-[#00ffe7]/70">
@@ -226,7 +208,6 @@ function Dashboard() {
           })}
         </section>
 
-        {/* PAGINATION */}
         <div className="mt-8 flex justify-center gap-4">
           <button
             disabled={currentPage === 1}
@@ -234,9 +215,11 @@ function Dashboard() {
           >
             Prev
           </button>
+
           <span className="text-[#00ffe7]">
             {currentPage} / {totalPages}
           </span>
+
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage((p) => p + 1)}
