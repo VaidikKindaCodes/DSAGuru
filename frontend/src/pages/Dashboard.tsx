@@ -23,7 +23,7 @@ function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [topic, setTopic] = useState("All");
   const [addingToBookmarks, setAddingToBookmarks] = useState(false);
-
+  const [reloadQuestions, setReloadQuestions] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState(searchTerm);
 
@@ -64,6 +64,7 @@ function Dashboard() {
       });
       const data = await res.json();
       if (data && data.success) {
+        setReloadQuestions(prev => !prev); 
         alert("Question bookmarked");
       } else {
         alert("Couldn't add question to bookmarks");
@@ -91,6 +92,8 @@ function Dashboard() {
       });
       const data = await res.json();
       if (data && data.success) {
+        alert("added question to solved list")
+        setReloadQuestions(prev => !prev); 
         setUser((prev: AuthContextType["user"]) =>
           prev
             ? {
@@ -117,6 +120,8 @@ function Dashboard() {
       });
       const data = await res.json();
       if (data && data.success) {
+        alert("Removed question from solved list");
+        setReloadQuestions(prev => !prev); 
         setUser((prev: AuthContextType["user"]) =>
           prev
             ? {
@@ -143,7 +148,7 @@ function Dashboard() {
 
   useEffect(() => {
     handleFetchQuestions();
-  }, []);
+  }, [reloadQuestions]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0f13] via-[#10151a] to-[#181f23] flex items-center justify-center py-8 px-4 sm:px-6">
